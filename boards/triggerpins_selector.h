@@ -1,7 +1,9 @@
 #ifndef _TRIGGERPINS_SELECTOR
 #define _TRIGGERPINS_SELECTOR
 
-#ifdef ARDUINO_TEENSY35
+#ifdef ARDUINO_TEENSY31
+#include "triggerpins_teensy31.h"
+#elif ARDUINO_TEENSY35
 #include "triggerpins_teensy35.h"
 #elif ARDUINO_TEENSY36
 #include "triggerpins_teensy36.h"

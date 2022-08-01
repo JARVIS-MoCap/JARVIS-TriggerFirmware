@@ -66,7 +66,7 @@ uint32_t pulse_count = 0;
 // Input handler
 #define makeInputInterrupt(pin, pullup, mask) \
   {                                           \
-    if (digitalPinToPort(pin) != NOT_A_PIN)   \
+    if (digitalPinToPort(pin) != 0)           \
     {                                         \
       pinMode(pin, pullup);                   \
       attachInterrupt(                        \
