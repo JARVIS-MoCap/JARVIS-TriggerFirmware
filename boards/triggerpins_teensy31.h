@@ -1,5 +1,5 @@
-#ifndef _TRIGGERPINS_TEENSY35
-#define _TRIGGERPINS_TEENSY35
+#ifndef _TRIGGERPINS_TEENSY31
+#define _TRIGGERPINS_TEENSY31
 
 #include "triggerpins_generic.h"
 

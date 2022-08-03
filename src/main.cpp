@@ -136,25 +136,33 @@ void setup()
 
   // Outputs
   // note: pinmode does not generate an error for invalid pins
-  pinMode(OUT0_PIN, OUTPUT);
-  pinMode(OUT1_PIN, OUTPUT);
-  pinMode(OUT2_PIN, OUTPUT);
-  pinMode(OUT3_PIN, OUTPUT);
-  pinMode(OUT4_PIN, OUTPUT);
-  pinMode(OUT5_PIN, OUTPUT);
-  pinMode(OUT6_PIN, OUTPUT);
-  pinMode(OUT7_PIN, OUTPUT);
+  pinMode(OUT00_PIN, OUTPUT);
+  pinMode(OUT01_PIN, OUTPUT);
+  pinMode(OUT02_PIN, OUTPUT);
+  pinMode(OUT03_PIN, OUTPUT);
+  pinMode(OUT04_PIN, OUTPUT);
+  pinMode(OUT05_PIN, OUTPUT);
+  pinMode(OUT06_PIN, OUTPUT);
+  pinMode(OUT07_PIN, OUTPUT);
+  pinMode(OUT08_PIN, OUTPUT);
+  pinMode(OUT09_PIN, OUTPUT);
+  pinMode(OUT10_PIN, OUTPUT);
+  pinMode(OUT11_PIN, OUTPUT);
+  pinMode(OUT12_PIN, OUTPUT);
+  pinMode(OUT13_PIN, OUTPUT);
+  pinMode(OUT14_PIN, OUTPUT);
+  pinMode(OUT15_PIN, OUTPUT);
 
   // Inputs
   // note: makeInputInterrupt does not generate an error for invalid pins
-  makeInputInterrupt(IN0_PIN, INPUT_PULLUP, IN0_MASK);
-  makeInputInterrupt(IN1_PIN, INPUT_PULLUP, IN1_MASK);
-  makeInputInterrupt(IN2_PIN, INPUT_PULLUP, IN2_MASK);
-  makeInputInterrupt(IN3_PIN, INPUT_PULLUP, IN3_MASK);
-  makeInputInterrupt(IN4_PIN, INPUT_PULLUP, IN4_MASK);
-  makeInputInterrupt(IN5_PIN, INPUT_PULLUP, IN5_MASK);
-  makeInputInterrupt(IN6_PIN, INPUT_PULLUP, IN5_MASK);
-  makeInputInterrupt(IN7_PIN, INPUT_PULLUP, IN5_MASK);
+  makeInputInterrupt(IN00_PIN, INPUT_PULLUP, IN0_MASK);
+  makeInputInterrupt(IN01_PIN, INPUT_PULLUP, IN1_MASK);
+  makeInputInterrupt(IN02_PIN, INPUT_PULLUP, IN2_MASK);
+  makeInputInterrupt(IN03_PIN, INPUT_PULLUP, IN3_MASK);
+  makeInputInterrupt(IN04_PIN, INPUT_PULLUP, IN4_MASK);
+  makeInputInterrupt(IN05_PIN, INPUT_PULLUP, IN5_MASK);
+  makeInputInterrupt(IN06_PIN, INPUT_PULLUP, IN6_MASK);
+  makeInputInterrupt(IN07_PIN, INPUT_PULLUP, IN7_MASK);
 
   // Communication
   packet_serial.setStream(&Serial);
@@ -184,14 +192,22 @@ void loop()
 
     // # Timer0 code:
     // note: digitalWrite does not generate an error for invalid pins
-    digitalWrite(OUT0_PIN, wave_state);
-    digitalWrite(OUT1_PIN, wave_state);
-    digitalWrite(OUT2_PIN, wave_state);
-    digitalWrite(OUT3_PIN, wave_state);
-    digitalWrite(OUT4_PIN, wave_state);
-    digitalWrite(OUT5_PIN, wave_state);
-    digitalWrite(OUT6_PIN, wave_state);
-    digitalWrite(OUT7_PIN, wave_state);
+    digitalWrite(OUT00_PIN, wave_state);
+    digitalWrite(OUT01_PIN, wave_state);
+    digitalWrite(OUT02_PIN, wave_state);
+    digitalWrite(OUT03_PIN, wave_state);
+    digitalWrite(OUT04_PIN, wave_state);
+    digitalWrite(OUT05_PIN, wave_state);
+    digitalWrite(OUT06_PIN, wave_state);
+    digitalWrite(OUT07_PIN, wave_state);
+    digitalWrite(OUT08_PIN, wave_state);
+    digitalWrite(OUT09_PIN, wave_state);
+    digitalWrite(OUT10_PIN, wave_state);
+    digitalWrite(OUT11_PIN, wave_state);
+    digitalWrite(OUT12_PIN, wave_state);
+    digitalWrite(OUT13_PIN, wave_state);
+    digitalWrite(OUT14_PIN, wave_state);
+    digitalWrite(OUT15_PIN, wave_state);
 
     if (pulse_limit && pulse_count >= pulse_limit)
     {
