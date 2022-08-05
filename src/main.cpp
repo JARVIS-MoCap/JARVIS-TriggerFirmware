@@ -44,7 +44,7 @@
 #include "triggerpins_selector.h"
 
 #define BAUDRATE 115200
-#define SERIAL_START_DELAY 2000
+#define SERIAL_START_DELAY 100
 
 // Delays
 #define SECOUND 1e6
