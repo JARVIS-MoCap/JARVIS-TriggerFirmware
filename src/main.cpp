@@ -78,8 +78,10 @@ uint32_t pulse_count = 0;
   }
 
 uint8_t inputs_state = 0;
+uint32_t inputs_changetime_us = 0;
 void handleInput(uint16_t pin, INPUT_MASK mask)
 {
+  uint32_t inputs_changetime_us = micros();
   if (digitalRead(pin))
   {
     inputs_state |= mask; // setting bit
@@ -220,7 +222,13 @@ void loop()
   if (inputs_state_before != inputs_state)
   {
     inputs_state_before = inputs_state;
-    serial_peer.sendInputs(current_us, pulse_count, inputs_state);
+
+    noInterrupts();
+    uint32_t temp_inputs_changetime_us = inputs_changetime_us;
+    uint8_t temp_inputs_state = inputs_state;
+    interrupts();
+
+    serial_peer.sendInputs(temp_inputs_changetime_us, pulse_count, temp_inputs_state);
   }
 
   // Communication
