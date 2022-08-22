@@ -81,7 +81,6 @@ uint8_t inputs_state = 0;
 uint32_t inputs_changetime_us = 0;
 void handleInput(uint16_t pin, INPUT_MASK mask)
 {
-  uint32_t inputs_changetime_us = micros();
   if (digitalRead(pin))
   {
     inputs_state |= mask; // setting bit
@@ -90,6 +89,7 @@ void handleInput(uint16_t pin, INPUT_MASK mask)
   {
     inputs_state &= ~(mask); // clearing bit
   }
+  uint32_t inputs_changetime_us = micros();
 }
 
 // Communication
