@@ -227,7 +227,7 @@ void loop()
   static uint8_t inputs_changetime_us_before = 0;
   if (inputs_changetime_us_before != inputs_changetime_us)
   {
-    inputs_changetime_us_before = inputs_state;
+    inputs_changetime_us_before = inputs_changetime_us;
 
     noInterrupts();
     uint32_t temp_inputs_changetime_us = inputs_changetime_us;
