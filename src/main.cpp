@@ -187,13 +187,15 @@ void loop()
 
   // Generate pulses
   uint32_t current_us = micros();
-  if (pulse_hz && (uint32_t)(current_us - square_wave_timer_last_time_us) > SECOUND / (pulse_hz * 2))
+  if (
+      (wave_state || pulse_hz) &&
+      (current_us - square_wave_timer_last_time_us) > SECOUND / (pulse_hz * 2))
   {
     square_wave_timer_last_time_us = current_us;
     pulse_count += wave_state;
     wave_state = !wave_state;
 
-    // # Timer0 code:
+    // # square_wave_timer code:
     // note: digitalWrite does not generate an error for invalid pins
     digitalWrite(OUT00_PIN, wave_state);
     digitalWrite(OUT01_PIN, wave_state);
@@ -263,16 +265,20 @@ void loop()
     setup_start_timer_enable = true;
   }
 
-  if (setup_start_timer_enable && (uint32_t)(current_us - setup_start_timer_last_time_us) > setup_start_timer_delay_us)
+  if (
+      setup_start_timer_enable &&
+      (uint32_t)(current_us - setup_start_timer_last_time_us) > setup_start_timer_delay_us)
   {
     setup_start_timer_enable = false;
+    // # setup_start_timer code:
 
     // Setup
     if (setup_struct.flags & RESET_COUNTER)
     {
       pulse_count = 0;
-      wave_state = LOW;
     }
+    sync_rising_edge = setup_struct.flags & SYNC_RISING_EDGE;
+
     pulse_hz = setup_struct.pulse_hz;
     pulse_limit = setup_struct.pulse_limit;
     serial_peer.sendInputs(current_us, pulse_count, inputs_state); // Send states on start
