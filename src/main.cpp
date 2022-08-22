@@ -192,7 +192,7 @@ void loop()
       (current_us - square_wave_timer_last_time_us) > SECOUND / (pulse_hz * 2))
   {
     square_wave_timer_last_time_us = current_us;
-    pulse_count += wave_state;
+    pulse_count += wave_state; // increment on falling edge
     wave_state = !wave_state;
 
     // # square_wave_timer code:
@@ -214,7 +214,7 @@ void loop()
     digitalWrite(OUT14_PIN, wave_state);
     digitalWrite(OUT15_PIN, wave_state);
 
-    if (pulse_count == 0 && wave_state & sync_rising_edge)
+    if (pulse_count <= 1 && wave_state ^ !sync_rising_edge)
     {
       // Send first input on rising edge/falling edge (bool sync_rising_edge) to enable triggerdata/camera-metadata synchronisation
       inputs_changetime_us = current_us;
