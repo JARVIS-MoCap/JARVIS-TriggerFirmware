@@ -177,6 +177,7 @@ void loop()
 {
   static uint32_t square_wave_timer_last_time_us = micros();
   static uint8_t wave_state = LOW;
+  static uint8_t sync_rising_edge = true;
   static uint32_t setup_start_timer_last_time_us = micros();
   static uint32_t setup_start_timer_delay_us = 0;
   static uint8_t setup_start_timer_enable = false;
@@ -211,6 +212,11 @@ void loop()
     digitalWrite(OUT14_PIN, wave_state);
     digitalWrite(OUT15_PIN, wave_state);
 
+    if (pulse_count == 0 && wave_state & sync_rising_edge)
+    {
+      // Send first input on rising edge/falling edge (bool sync_rising_edge) to enable triggerdata/camera-metadata synchronisation
+      inputs_changetime_us = current_us;
+    }
     if (pulse_limit && pulse_count >= pulse_limit)
     {
       pulse_hz = 0;
@@ -218,10 +224,10 @@ void loop()
   }
 
   // Send inputs on changes
-  static uint8_t inputs_state_before = 0;
-  if (inputs_state_before != inputs_state)
+  static uint8_t inputs_changetime_us_before = 0;
+  if (inputs_changetime_us_before != inputs_changetime_us)
   {
-    inputs_state_before = inputs_state;
+    inputs_changetime_us_before = inputs_state;
 
     noInterrupts();
     uint32_t temp_inputs_changetime_us = inputs_changetime_us;
