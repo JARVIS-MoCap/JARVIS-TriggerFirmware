@@ -183,12 +183,13 @@ void loop()
   static uint8_t setup_start_timer_enable = false;
 
   static uint8_t pulse_hz = 0;
+  static uint8_t req_pulse_hz = 0;
   static uint32_t pulse_limit = 0;
 
   // Generate pulses
   uint32_t current_us = micros();
   if (
-      (wave_state || pulse_hz) &&
+      pulse_hz &&
       (current_us - square_wave_timer_last_time_us) > SECOUND / (pulse_hz * 2))
   {
     square_wave_timer_last_time_us = current_us;
@@ -219,9 +220,16 @@ void loop()
       // Send first input on rising edge/falling edge (bool sync_rising_edge) to enable triggerdata/camera-metadata synchronisation
       inputs_changetime_us = current_us;
     }
+
     if (pulse_limit && pulse_count >= pulse_limit)
     {
-      pulse_hz = 0;
+      req_pulse_hz = 0;
+    }
+
+    // Stop pulsing only after falling edge
+    if (wave_state == LOW)
+    {
+      pulse_hz = req_pulse_hz;
     }
   }
 
@@ -273,12 +281,16 @@ void loop()
     // Setup
     sync_rising_edge = setup_struct.flags & SYNC_RISING_EDGE;
 
-    pulse_hz = setup_struct.pulse_hz;
+    req_pulse_hz = setup_struct.pulse_hz;
     pulse_limit = setup_struct.pulse_limit;
 
     if (setup_struct.flags & RESET_COUNTER)
     {
       pulse_count = 0;
     }
+  }
+  if (pulse_hz == 0)
+  {
+    pulse_hz = req_pulse_hz;
   }
 }
