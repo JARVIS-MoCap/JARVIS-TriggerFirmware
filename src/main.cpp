@@ -89,7 +89,7 @@ void handleInput(uint16_t pin, INPUT_MASK mask)
   {
     inputs_state &= ~(mask); // clearing bit
   }
-  uint32_t inputs_changetime_us = micros();
+  inputs_changetime_us = micros();
 }
 
 // Communication
@@ -226,17 +226,15 @@ void loop()
   }
 
   // Send inputs on changes
-  static uint8_t inputs_changetime_us_before = 0;
+  static uint32_t inputs_changetime_us_before = 0;
   if (inputs_changetime_us_before != inputs_changetime_us)
   {
-    inputs_changetime_us_before = inputs_changetime_us;
-
     noInterrupts();
-    uint32_t temp_inputs_changetime_us = inputs_changetime_us;
+    inputs_changetime_us_before = inputs_changetime_us;
     uint8_t temp_inputs_state = inputs_state;
     interrupts();
 
-    serial_peer.sendInputs(temp_inputs_changetime_us, pulse_count, temp_inputs_state);
+    serial_peer.sendInputs(inputs_changetime_us_before, pulse_count, temp_inputs_state);
   }
 
   // Communication
@@ -273,14 +271,14 @@ void loop()
     // # setup_start_timer code:
 
     // Setup
-    if (setup_struct.flags & RESET_COUNTER)
-    {
-      pulse_count = 0;
-    }
     sync_rising_edge = setup_struct.flags & SYNC_RISING_EDGE;
 
     pulse_hz = setup_struct.pulse_hz;
     pulse_limit = setup_struct.pulse_limit;
-    serial_peer.sendInputs(current_us, pulse_count, inputs_state); // Send states on start
+
+    if (setup_struct.flags & RESET_COUNTER)
+    {
+      pulse_count = 0;
+    }
   }
 }
