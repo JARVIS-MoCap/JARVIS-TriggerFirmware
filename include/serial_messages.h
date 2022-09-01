@@ -1,11 +1,12 @@
 #ifndef _SERIAL_MESSAGES_H
 #define _SERIAL_MESSAGES_H
 
-#pragma pack( \
-    push, 1) // Ensure that there is no byte alignment in protocol structures
+#include <stdint.h>
 
-enum message_type
-{
+// Ensure that there is no byte alignment in protocol structures
+#pragma pack(push, 1)
+
+enum message_type {
     TYPE_ECHO, // for debugging
     TYPE_SETUP,
     TYPE_INPUTS,
@@ -14,8 +15,7 @@ enum message_type
     TYPE_ERROR,
 };
 
-enum setup_flags
-{
+enum setup_flags {
     RESET_COUNTER = 1 << 0,
     SYNC_RISING_EDGE = 1 << 1,
 };
@@ -23,8 +23,7 @@ enum setup_flags
 // +-------+-------+-------+-------+
 // |  type | length| crc   |   X   |
 // +-------+-------+-------+-------+
-struct header_t
-{
+struct header_t {
     uint8_t type;
     uint8_t length;
     uint8_t crc;
@@ -37,8 +36,7 @@ typedef struct header_t msg_header;
 // +-------+-------+-------+-------+
 // |              ...              |
 // +-------+-------+-------+-------+
-struct message_t
-{
+struct message_t {
     msg_header header;
     uint8_t value[];
 };
@@ -58,8 +56,7 @@ typedef struct message_t txt_message;
 // +-------+-------+-------+-------+
 // |           pulse_id            |
 // +-------+-------+-------+-------+
-struct input_state_message_t
-{
+struct input_state_message_t {
     msg_header header;
     uint8_t inputs_state;
     uint32_t uptime_us;
@@ -75,8 +72,7 @@ typedef struct input_state_message_t input_state_message;
 // +-------+-------+-------+-------+
 // |           delay_us            |
 // +-------+-------+-------+-------+
-struct setup_message_t
-{
+struct setup_message_t {
     msg_header header;
     uint8_t pulse_hz;     // Frequency in herz 1-255; 0 -> OFF
     uint32_t pulse_limit; // 0 -> unlimited pulses
