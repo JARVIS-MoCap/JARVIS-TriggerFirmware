@@ -32,3 +32,10 @@
 If you encounter a error regarding missing `libhidapi-hidraw0` install it with:
 
      sudo apt install -y libhidapi-hidraw0
+
+
+# Contact
+JARVIS was developed at the **Neurobiology Lab of the German Primate Center ([DPZ](https://www.dpz.eu/de/startseite.html))**.
+If you have any questions or other inquiries related to JARVIS please contact:
+
+Timo Hüser - [@hueser_timo](https://mobile.twitter.com/hueser_timo) - timo.hueser@gmail.com
