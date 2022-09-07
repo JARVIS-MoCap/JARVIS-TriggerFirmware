@@ -29,7 +29,4 @@
 #define IN06_PIN 22
 #define IN07_PIN 23
 
-
-
-
 #endif
