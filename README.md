@@ -9,6 +9,7 @@
       git clone --recursive https://github.com/JARVIS-MoCap/JARVIS-TriggerFirmware.git
 
 - Make sure you are in the `JARVIS-TriggerFirmware` Directory and run:
+
            sh install_arduino_uno.sh
 
 ### Windows
