@@ -9,6 +9,8 @@
 #include "triggerpins_teensy36.h"
 #elif ARDUINO_TEENSY36
 #include "triggerpins_teensy36.h"
+#elif ARDUINO_TEENSY40
+#include "triggerpins_teensy40.h"
 #elif ARDUINO_TEENSY41
 #include "triggerpins_teensy41.h"
 #elif ARDUINO_AVR_NANO
