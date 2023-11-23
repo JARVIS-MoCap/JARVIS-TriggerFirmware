@@ -8,6 +8,10 @@
 
       git clone --recursive https://github.com/JARVIS-MoCap/JARVIS-TriggerFirmware.git
 
+- Setup udev rules by running:
+
+      curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
+
 - Make sure you are in the `JARVIS-TriggerFirmware` Directory and run:
 
            sh install_arduino_uno.sh
